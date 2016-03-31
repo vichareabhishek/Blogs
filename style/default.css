@@ -1,0 +1,160 @@
+html, body {
+	margin: 0px;
+	background: #fff;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:0.95em;
+	color:#4d4948;
+}
+
+h1 {
+	margin: 0;
+	text-align: center;
+	font-size: 150%;
+	padding: 0px;
+}
+
+h2 {
+	margin: 0;
+	text-align: center;
+	font-size: 120%;
+	padding: 0px;
+}
+
+h3 {
+	margin: 0;
+	font-size: 105%;
+	padding: 0px;
+}
+
+a {
+	color:#4d4948;
+}
+
+#top {
+	margin: 0 auto 0 auto;
+	background:url('images/top-bg.jpg') repeat-x;
+	width:100%;
+	height:115px;
+}
+
+#logo {
+	margin: 0 auto 0 auto;
+	background:url('images/latest-build.gif');
+	width: 155px;
+	height: 124px;
+}
+
+#content {
+	margin: 0 auto 0 auto;
+	width: 95%;
+}
+
+#content #left-nav {
+	width:15%;
+	float:left;
+	font-size:95%;
+}
+
+#content #left-nav ul {
+	padding:0 0 50px 0;
+	margin:0;
+}
+
+#content #left-nav ul li {
+	padding:0;
+	margin:0;
+	list-style:none;
+}
+
+#content #left-nav ul li a {
+	text-decoration:none;
+}
+
+#content #left-nav ul li a:hover {
+	color:#ff0505;
+	text-decoration:underline;
+}
+
+#content #main {
+	float:left;
+	width:85%;
+	font-size:90%;
+}
+
+#content #main #regbox {
+	padding: 0 0 0 0;
+}
+
+#content #main #regbox label {
+	width:100px;
+	float:left;
+}
+
+table.admin td {
+	vertical-align: top;	
+}
+
+#error {
+	display:block;
+	margin:5px;
+	color:#4d4948;
+	background-color:#fffebe;
+	border: 1px solid #cbcbcb;
+	font-size:90%;
+}
+
+#success {
+	margin:5px;
+	color:#4d4948;
+	background-color:#bce9b5;
+	border: 1px solid #7ace6c;
+	font-size:90%;
+}
+
+#main {
+
+	border: 1px solid #e6e6e6;
+	overflow: hidden;
+	box-shadow: 0px 0px 5px #d8d8d8;
+	-moz-box-shadow: 0px 0px 5px #d8d8d8;
+	-webkit-box-shadow: 0px 0px 5px #d8d8d8;
+
+	border-bottom: 15px solid #fff;
+}
+
+#main #content {
+	width: 590px; float: left; padding: 35px 30px 60px 30px;
+}
+#main #content h2 {
+	font-size: 24px; font-weight: normal; text-transform: uppercase;
+	margin: 0 0 15px 0;
+}
+
+#main p {
+	margin: 0 0 24px 0;
+}
+
+#main #content .post-thumbnail {
+	float: left; margin: 4px 30px 10px 0;
+}
+#main #content .post-thumbnail img {
+	padding: 1px; border: 1px solid #eaeaea;
+}
+
+#main #content .post-info {
+	padding: 1px; border: 1px solid #e9e9e9; margin: 0 0 60px 0;
+}
+#main #content .post-info ul {
+	background: #e9e9e9; list-style: none; text-transform: uppercase;
+	padding: 15px 20px 10px 20px; overflow: hidden;
+}
+#main #content .post-info ul li.date {
+	float: left;
+}
+#main #content .post-info ul li.category {
+	float: left; margin: 0 0 0 20px;
+
+}
+#main #content .post-info ul li.read-more {
+	float: right;
+}
