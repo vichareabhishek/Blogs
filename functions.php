@@ -3,22 +3,19 @@
 //$password = md5("Smith");
 //echo $password."<br><br>";
 //$code = md5(uniqid(rand(), TRUE));
-
 //echo $code;
 
 
 
 //Generate a unique code
-function getUniqueCode($length = "") {
-  $code = md5(uniqid(rand(), TRUE));
-  if ($length != "") {
-    return substr($code, 0, $length);
+  function getUniqueCode($length = "") {
+    $code = md5(uniqid(rand(), TRUE));
+      if ($length != "") {
+        return substr($code, 0, $length);
+      } else {
+        return $code;
+      }
   }
-  else {
-    return $code;
-  }
-}
-
 
 
 //$plainText = getUniqueCode(15);
@@ -28,23 +25,18 @@ function getUniqueCode($length = "") {
 function generateHash($plainText, $salt = NULL) {
   if ($salt === NULL) {
     $salt = substr(md5(uniqid(rand(), TRUE)), 0, 25);
-  }
-  else {
+  } else {
     $salt = substr($salt, 0, 25);
   }
-
   return $salt . sha1($salt . $plainText);
 }
 
 
-
 //echo $newpassword;
 //$compare = generateHash($_POST['password'], $newpassword);
-
 //echo $compare;
 
-function createNewUser($username, $firstname, $lastname, $email, $password)
-{
+function createNewUser($username, $firstname, $lastname, $email, $password) {
   global $mysqli, $db_table_prefix;
   //Generate A random userid
 
@@ -64,8 +56,7 @@ function createNewUser($username, $firstname, $lastname, $email, $password)
 
   $newpassword = generateHash($password);
 
-  echo $newpassword;
-
+  //echo $newpassword;
 
   $stmt = $mysqli->prepare(
     "INSERT INTO " . $db_table_prefix . "UserDetails (
@@ -99,9 +90,7 @@ function createNewUser($username, $firstname, $lastname, $email, $password)
 }
 
 //Retrieve complete user information by username
-function fetchUserDetails($username)
-{
-
+function fetchUserDetails($username) {
   global $mysqli,$db_table_prefix;
   $stmt = $mysqli->prepare("SELECT
 		UserID,
@@ -122,13 +111,13 @@ function fetchUserDetails($username)
   $stmt->bind_result($UserID, $UserName, $FirstName, $LastName, $Email, $Password, $MemberSince, $Active);
   while ($stmt->fetch()){
     $row = array('UserID' => $UserID,
-                 'UserName' => $UserName,
-                 'FirstName' => $FirstName,
-                 'LastName' => $LastName,
-                 'Email' => $Email,
-                 'Password' => $Password,
-                 'MemberSince' => $MemberSince,
-                 'Active' => $Active);
+      'UserName' => $UserName,
+      'FirstName' => $FirstName,
+      'LastName' => $LastName,
+      'Email' => $Email,
+      'Password' => $Password,
+      'MemberSince' => $MemberSince,
+      'Active' => $Active);
   }
   $stmt->close();
   return ($row);
@@ -137,8 +126,7 @@ function fetchUserDetails($username)
 
 
 //Check if a user is logged in
-function isUserLoggedIn()
-{
+function isUserLoggedIn() {
   global $loggedInUser,$mysqli,$db_table_prefix;
   $stmt = $mysqli->prepare("SELECT
 		UserID,
@@ -178,8 +166,7 @@ function isUserLoggedIn()
 
 
 //Destroys a session as part of logout
-function destroySession($name)
-{
+function destroySession($name) {
   if(isset($_SESSION[$name]))
   {
     $_SESSION[$name] = NULL;
@@ -189,8 +176,7 @@ function destroySession($name)
 
 
 //Retrieve complete user information of all users
-function fetchAllUsers()
-{
+function fetchAllUsers() {
 
   global $mysqli,$db_table_prefix;
   $stmt = $mysqli->prepare("SELECT
@@ -209,20 +195,20 @@ function fetchAllUsers()
   $stmt->bind_result($UserID, $UserName, $FirstName, $LastName, $Email, $Password, $MemberSince, $Active);
   while ($stmt->fetch()){
     $row[] = array('UserID' => $UserID,
-                 'UserName' => $UserName,
-                 'FirstName' => $FirstName,
-                 'LastName' => $LastName,
-                 'Email' => $Email,
-                 'Password' => $Password,
-                 'MemberSince' => $MemberSince,
-                 'Active' => $Active);
+      'UserName' => $UserName,
+      'FirstName' => $FirstName,
+      'LastName' => $LastName,
+      'Email' => $Email,
+      'Password' => $Password,
+      'MemberSince' => $MemberSince,
+      'Active' => $Active);
   }
   $stmt->close();
   return ($row);
 }
 
-
-function fetchAllBlogs(){
+//function to fetch all the blogs that are available. currently not ordered, we can order it by date
+function fetchAllBlogs() {
   global $mysqli,$db_table_prefix;
   $stmt = $mysqli->prepare("SELECT
 		bloglisting.blogid,
@@ -246,17 +232,17 @@ function fetchAllBlogs(){
   $stmt->bind_result($blogid, $title, $datecreated, $deleteflag, $active, $userid, $blogcontent, $username, $firstname, $lastname, $email);
   while ($stmt->fetch()){
     $row[] = array('blogid' => $blogid,
-                   'title' => $title,
-                   'datecreated' => $datecreated,
-                   'deleteflag' => $deleteflag,
-                   'active' => $active,
-                   'userid' => $userid,
-                   'blogcontent' => $blogcontent,
-                   'username' => $username,
-                   'firstname' => $firstname,
-                   'lastname' => $lastname,
-                   'email'  => $email
-                   );
+      'title' => $title,
+      'datecreated' => $datecreated,
+      'deleteflag' => $deleteflag,
+      'active' => $active,
+      'userid' => $userid,
+      'blogcontent' => $blogcontent,
+      'username' => $username,
+      'firstname' => $firstname,
+      'lastname' => $lastname,
+      'email'  => $email
+    );
   }
   $stmt->close();
   return ($row);
@@ -264,9 +250,8 @@ function fetchAllBlogs(){
 
 
 
-
-
-function fetchMyBlogs(){
+// only fetch the blogs that the logged in user has created. Notice that we have used $loggedInUser
+function fetchMyBlogs() {
   global $loggedInUser, $mysqli,$db_table_prefix;
   $stmt = $mysqli->prepare("SELECT
 		bloglisting.blogid,
@@ -285,13 +270,13 @@ function fetchMyBlogs(){
   $stmt->bind_result($blogid, $title, $datecreated, $deleteflag, $active, $userid, $blogcontent);
   while ($stmt->fetch()){
     $row[] = array('blogid'       => $blogid,
-                   'title'        => $title,
-                   'datecreated'  => $datecreated,
-                   'deleteflag'   => $deleteflag,
-                   'active'       => $active,
-                   'userid'       => $userid,
-                   'blogcontent'  => $blogcontent
-                   );
+      'title'        => $title,
+      'datecreated'  => $datecreated,
+      'deleteflag'   => $deleteflag,
+      'active'       => $active,
+      'userid'       => $userid,
+      'blogcontent'  => $blogcontent
+    );
   }
   $stmt->close();
   return ($row);
@@ -300,9 +285,9 @@ function fetchMyBlogs(){
 
 
 
-
-function fetchThisBlog($blogid){
-global $loggedInUser, $mysqli,$db_table_prefix;
+// fetch a particular blog with blog id.
+function fetchThisBlog($blogid) {
+  global $loggedInUser, $mysqli,$db_table_prefix;
   $stmt = $mysqli->prepare("SELECT
 		bloglisting.blogid,
 		bloglisting.title,
@@ -324,29 +309,27 @@ global $loggedInUser, $mysqli,$db_table_prefix;
   $stmt->execute();
   $stmt->bind_result($blogid, $title, $datecreated, $deleteflag, $active, $userid, $blogcontent, $username, $firstname, $lastname, $email);
   while ($stmt->fetch()){
-  $row = array('blogid'       => $blogid,
-                 'title'        => $title,
-                 'datecreated'  => $datecreated,
-                 'deleteflag'   => $deleteflag,
-                 'active'       => $active,
-                 'userid'       => $userid,
-                 'blogcontent'  => $blogcontent,
-                  'username' => $username,
-                'firstname' => $firstname,
-                'lastname' => $lastname,
-                'email'  => $email
-  );
+    $row = array('blogid'       => $blogid,
+      'title'        => $title,
+      'datecreated'  => $datecreated,
+      'deleteflag'   => $deleteflag,
+      'active'       => $active,
+      'userid'       => $userid,
+      'blogcontent'  => $blogcontent,
+      'username' => $username,
+      'firstname' => $firstname,
+      'lastname' => $lastname,
+      'email'  => $email
+    );
+  }
+  $stmt->close();
+  return ($row);
 }
-$stmt->close();
-return ($row);
-}
 
 
 
 
-
-
-
+//create a blog, notice the similarity with create user.
 function createBlog($title, $blog){
   global $loggedInUser, $mysqli,$db_table_prefix;
 
@@ -414,6 +397,8 @@ function createBlog($title, $blog){
 
 }
 
+
+//truncate characters on the front page for description.
 function truncate_chars($text, $limit, $ellipsis = '...') {
   if( strlen($text) > $limit )
     $text = trim(substr($text, 0, $limit)) . $ellipsis;

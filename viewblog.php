@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Praviin
- * Date: 11/9/15
- * Time: 12:40 PM
- */
+
 
 require_once("config.php");
 require_once("header.php");
